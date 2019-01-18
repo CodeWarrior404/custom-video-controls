@@ -1,0 +1,5 @@
+<div>
+  <video *ngIf="fileUrl" controls autoplay>
+    <source [src]="fileUrl | safe">
+  </video>
+</div>
