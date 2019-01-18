@@ -46,4 +46,14 @@ export class VideoPlayerComponent implements OnInit, OnChanges {
     player.currentTime = percent * player.duration;
   }
 
+  muteClickHandler(): void {
+    const player: HTMLVideoElement = this.player.nativeElement;
+    player.muted = true;
+  }
+
+  unMuteClickHandler(): void {
+    const player: HTMLVideoElement = this.player.nativeElement;
+    player.muted = false;
+  }
+
 }
