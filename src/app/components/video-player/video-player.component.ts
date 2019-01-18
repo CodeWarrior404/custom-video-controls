@@ -29,6 +29,16 @@ export class VideoPlayerComponent implements OnInit, OnChanges {
     progressBar.value = percent;
   }
 
+  playClickHandler(): void {
+    const player: HTMLVideoElement = this.player.nativeElement;
+    player.play();
+  }
+
+  pauseClickHandler(): void {
+    const player: HTMLVideoElement = this.player.nativeElement;
+    player.pause();
+  }
+
   progressBarClickHandler(e): void {
     const player: HTMLVideoElement = this.player.nativeElement;
     const progressBar: HTMLProgressElement = this.progressBar.nativeElement;
