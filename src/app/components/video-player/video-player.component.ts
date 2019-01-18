@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-video-player',
@@ -6,6 +6,8 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
   styleUrls: ['./video-player.component.scss']
 })
 export class VideoPlayerComponent implements OnInit, OnChanges {
+  @ViewChild('player') player;
+  @ViewChild('progressBar') progressBar;
   @Input() file: File;
   fileUrl: string;
 
@@ -18,6 +20,20 @@ export class VideoPlayerComponent implements OnInit, OnChanges {
     if (changes && changes.file && this.file) {
       this.fileUrl = URL.createObjectURL(this.file);
     }
+  }
+
+  videoTimeUpdateHandler(e): void {
+    const player: HTMLVideoElement = this.player.nativeElement;
+    const progressBar: HTMLProgressElement = this.progressBar.nativeElement;
+    const percent = Math.floor(player.currentTime * 100 / player.duration);
+    progressBar.value = percent;
+  }
+
+  progressBarClickHandler(e): void {
+    const player: HTMLVideoElement = this.player.nativeElement;
+    const progressBar: HTMLProgressElement = this.progressBar.nativeElement;
+    const percent = e.offsetX / progressBar.offsetWidth;
+    player.currentTime = percent * player.duration;
   }
 
 }

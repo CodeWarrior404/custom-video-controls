@@ -1,5 +1,9 @@
 <div>
-  <video *ngIf="fileUrl" controls autoplay>
+  <video #player [height]="100" *ngIf="fileUrl" controls (timeupdate)="videoTimeUpdateHandler($event)">
     <source [src]="fileUrl | safe">
   </video>
+</div>
+
+<div class="controls-container">
+  <progress #progressBar min='0' max='100' value='0' (click)="progressBarClickHandler($event)"></progress>
 </div>
