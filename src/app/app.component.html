@@ -1,1 +1,12 @@
-Hello World!
+<div class="page-container">
+  <label for="file-select" class="file-select-button">
+    <i class="fa fa-cloud-upload"></i>
+    Select Video
+  </label>
+  <input id="file-select" type="file" name="name" accept='video/*'
+         (change)="fileSelectionHandler($event)"/>
+
+  <div class="page-row">
+  </div>
+
+</div>
