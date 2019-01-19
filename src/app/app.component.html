@@ -7,7 +7,11 @@
          (change)="fileSelectionHandler($event)"/>
 
   <div class="page-row">
-    <app-video-player [file]="selectedFile"></app-video-player>
+    <app-video-player
+      [file]="selectedFile"
+      [autoplay]="false"
+      [loop]="false">
+    </app-video-player>
   </div>
 
 </div>

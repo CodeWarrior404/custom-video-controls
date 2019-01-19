@@ -8,6 +8,8 @@ import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, View
 export class VideoPlayerComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('player') player;
   @Input() file: File;
+  @Input() autoplay: boolean;
+  @Input() loop: boolean;
   fileUrl: string;
   htmlVideoElement: HTMLVideoElement;
 
