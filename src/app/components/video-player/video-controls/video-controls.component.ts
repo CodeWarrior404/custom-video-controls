@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-video-controls',
@@ -6,9 +6,9 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@
   styleUrls: ['./video-controls.component.scss']
 })
 export class VideoControlsComponent implements OnInit, OnChanges {
-  @ViewChild('progressBar') progressBar;
   @Input() player: HTMLVideoElement;
   volume = 1;
+  seekLocation = 0;
   videoLoaded: boolean;
 
   constructor() { }
@@ -24,10 +24,12 @@ export class VideoControlsComponent implements OnInit, OnChanges {
     }
   }
 
-  videoTimeUpdateHandler(): void {
-    const progressBar: HTMLProgressElement = this.progressBar.nativeElement;
-    const percent = Math.floor(this.player.currentTime / this.player.duration * 100);
-    progressBar.value = percent;
+  trackProgressClickHandler(): void {
+    this.player.currentTime = this.seekLocation * this.player.duration;
+  }
+
+  private videoTimeUpdateHandler(): void {
+    this.seekLocation = this.player.currentTime / this.player.duration;
   }
 
   playClickHandler(): void {
@@ -36,12 +38,6 @@ export class VideoControlsComponent implements OnInit, OnChanges {
 
   pauseClickHandler(): void {
     this.player.pause();
-  }
-
-  progressBarClickHandler(e): void {
-    const progressBar: HTMLProgressElement = this.progressBar.nativeElement;
-    const percent = e.offsetX / progressBar.offsetWidth;
-    this.player.currentTime = percent * this.player.duration;
   }
 
   muteClickHandler(): void {
@@ -63,7 +59,7 @@ export class VideoControlsComponent implements OnInit, OnChanges {
     }
   }
 
-  videoVolumeChangeHandler(): void {
+  private videoVolumeChangeHandler(): void {
     this.volume = this.player.volume;
     if (this.volume === 0) {
       this.player.muted = true;
