@@ -1,16 +1,15 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-video-player',
   templateUrl: './video-player.component.html',
   styleUrls: ['./video-player.component.scss']
 })
-export class VideoPlayerComponent implements OnInit, OnChanges {
+export class VideoPlayerComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('player') player;
-  @ViewChild('progressBar') progressBar;
   @Input() file: File;
   fileUrl: string;
-  volume = 0.5;
+  htmlVideoElement: HTMLVideoElement;
 
   constructor() { }
 
@@ -23,48 +22,10 @@ export class VideoPlayerComponent implements OnInit, OnChanges {
     }
   }
 
-  videoTimeUpdateHandler(e): void {
-    const player: HTMLVideoElement = this.player.nativeElement;
-    const progressBar: HTMLProgressElement = this.progressBar.nativeElement;
-    const percent = Math.floor(player.currentTime * 100 / player.duration);
-    progressBar.value = percent;
-  }
-
-  playClickHandler(): void {
-    const player: HTMLVideoElement = this.player.nativeElement;
-    player.play();
-  }
-
-  pauseClickHandler(): void {
-    const player: HTMLVideoElement = this.player.nativeElement;
-    player.pause();
-  }
-
-  progressBarClickHandler(e): void {
-    const player: HTMLVideoElement = this.player.nativeElement;
-    const progressBar: HTMLProgressElement = this.progressBar.nativeElement;
-    const percent = e.offsetX / progressBar.offsetWidth;
-    player.currentTime = percent * player.duration;
-  }
-
-  muteClickHandler(): void {
-    const player: HTMLVideoElement = this.player.nativeElement;
-    player.muted = true;
-  }
-
-  unMuteClickHandler(): void {
-    const player: HTMLVideoElement = this.player.nativeElement;
-    player.muted = false;
-  }
-
-  fullScreenClickHandler(): void {
-    const player: HTMLVideoElement = this.player.nativeElement;
-    player.requestFullscreen();
-  }
-
-  volumeClickHandler(): void {
-    const player: HTMLVideoElement = this.player.nativeElement;
-    player.volume = this.volume;
+  ngAfterViewInit(): void {
+    if (this.player) {
+      setTimeout(() => this.htmlVideoElement = this.player.nativeElement);
+    }
   }
 
 }
