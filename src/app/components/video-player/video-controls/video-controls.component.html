@@ -13,7 +13,7 @@
   </svg>
   <progress #progressBar class="player-control" min='0' max='100'
             value='0' (click)="progressBarClickHandler($event)"></progress>
-  <input type="range" class="player-control" min="0" max="1" step="0.1"
+  <input type="range" class="player-control range-selector" min="0" max="1" step="0.1"
          [(ngModel)]="volume" (change)="volumeClickHandler()">
   <svg class="player-control"
        *ngIf="!player.muted"
