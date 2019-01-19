@@ -1,7 +1,7 @@
-<div>
+<div class="page-container">
   <video #player [height]="300" controls>
     <source *ngIf="fileUrl"  [src]="fileUrl | safe">
   </video>
+  <app-video-controls class="video-controls" *ngIf="htmlVideoElement" [player]="htmlVideoElement"></app-video-controls>
 </div>
 
-<app-video-controls *ngIf="htmlVideoElement" [player]="htmlVideoElement"></app-video-controls>

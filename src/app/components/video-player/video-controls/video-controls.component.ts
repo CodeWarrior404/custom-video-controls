@@ -58,6 +58,9 @@ export class VideoControlsComponent implements OnInit, OnChanges {
 
   volumeClickHandler(): void {
     this.player.volume = this.volume;
+    if (this.volume > 0) {
+      this.player.muted = false;
+    }
   }
 
   videoVolumeChangeHandler(): void {
