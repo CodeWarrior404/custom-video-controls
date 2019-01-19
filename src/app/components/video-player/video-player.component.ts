@@ -10,6 +10,7 @@ export class VideoPlayerComponent implements OnInit, OnChanges {
   @ViewChild('progressBar') progressBar;
   @Input() file: File;
   fileUrl: string;
+  volume = 0.5;
 
   constructor() { }
 
@@ -54,6 +55,16 @@ export class VideoPlayerComponent implements OnInit, OnChanges {
   unMuteClickHandler(): void {
     const player: HTMLVideoElement = this.player.nativeElement;
     player.muted = false;
+  }
+
+  fullScreenClickHandler(): void {
+    const player: HTMLVideoElement = this.player.nativeElement;
+    player.requestFullscreen();
+  }
+
+  volumeClickHandler(): void {
+    const player: HTMLVideoElement = this.player.nativeElement;
+    player.volume = this.volume;
   }
 
 }
