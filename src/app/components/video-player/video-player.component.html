@@ -1,5 +1,5 @@
 <div class="page-container">
-  <video #player [height]="300" controls>
+  <video #player [height]="300">
     <source *ngIf="fileUrl"  [src]="fileUrl | safe">
   </video>
   <app-video-controls class="video-controls" *ngIf="htmlVideoElement" [player]="htmlVideoElement"></app-video-controls>
