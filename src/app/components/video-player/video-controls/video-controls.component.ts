@@ -9,6 +9,7 @@ export class VideoControlsComponent implements OnInit, OnChanges {
   @ViewChild('progressBar') progressBar;
   @Input() player: HTMLVideoElement;
   volume = 1;
+  videoLoaded: boolean;
 
   constructor() { }
 
@@ -17,6 +18,7 @@ export class VideoControlsComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes && changes.player && this.player) {
+      this.player.addEventListener('loadeddata', () => this.videoLoaded = true);
       this.player.addEventListener('timeupdate', () => this.videoTimeUpdateHandler());
       this.player.addEventListener('volumechange', () => this.videoVolumeChangeHandler());
     }
