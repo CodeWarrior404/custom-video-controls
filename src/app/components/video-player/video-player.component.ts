@@ -12,6 +12,8 @@ export class VideoPlayerComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() loop: boolean;
   fileUrl: string;
   htmlVideoElement: HTMLVideoElement;
+  showVideoControls: boolean;
+  timeoutRef: any;
 
   constructor() { }
 
@@ -28,6 +30,29 @@ export class VideoPlayerComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.player) {
       setTimeout(() => this.htmlVideoElement = this.player.nativeElement);
     }
+  }
+
+  mouseEnterHandler(): void {
+    if (this.timeoutRef) {
+      clearTimeout(this.timeoutRef);
+    }
+    this.showVideoControls = true;
+    this.timeoutRef = setTimeout(() => this.showVideoControls = false, 3000);
+  }
+
+  clickHandler(): void {
+    if (this.timeoutRef) {
+      clearTimeout(this.timeoutRef);
+    }
+    this.showVideoControls = true;
+    this.timeoutRef = setTimeout(() => this.showVideoControls = false, 3000);
+  }
+
+  mouseLeaveHandler(): void {
+    if (this.timeoutRef) {
+      clearTimeout(this.timeoutRef);
+    }
+    this.timeoutRef = setTimeout(() => this.showVideoControls = false, 3000);
   }
 
 }
