@@ -3,6 +3,22 @@
     <source *ngIf="fileUrl"  [src]="fileUrl | safe">
   </video>
   <app-video-controls class="video-controls" *ngIf="htmlVideoElement" [player]="htmlVideoElement"
-  [style.display]="showVideoControls ? '' : 'none'"></app-video-controls>
+                      (showFullscreen)="showHideFullScreenHandler($event)"
+                      [inFullScreenMode]="false"
+                      [style.display]="showVideoControls ? '' : 'none'">
+  </app-video-controls>
+</div>
+
+<div class="full-screen-container" *ngIf="fullScreenVisible">
+  <div class="full-screen-video-container">
+    <video #fullScreenPlayer [loop]="loop">
+      <source *ngIf="fileUrl" [src]="fileUrl | safe">
+    </video>
+    <app-video-controls #fullScreenControl class="full-screen-video-controls"
+                        [player]="htmlFullScreenVideoElement"
+                        [inFullScreenMode]="true"
+                        (showFullscreen)="showHideFullScreenHandler($event)">
+    </app-video-controls>
+  </div>
 </div>
 

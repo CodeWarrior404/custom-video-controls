@@ -7,13 +7,16 @@ import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, View
 })
 export class VideoPlayerComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('player') player;
+  @ViewChild('fullScreenPlayer') fullScreenPlayer;
   @Input() file: File;
   @Input() autoplay: boolean;
   @Input() loop: boolean;
   fileUrl: string;
   htmlVideoElement: HTMLVideoElement;
+  htmlFullScreenVideoElement: HTMLVideoElement;
   showVideoControls: boolean;
   timeoutRef: any;
+  fullScreenVisible: boolean;
 
   constructor() { }
 
@@ -53,6 +56,17 @@ export class VideoPlayerComponent implements OnInit, OnChanges, AfterViewInit {
       clearTimeout(this.timeoutRef);
     }
     this.timeoutRef = setTimeout(() => this.showVideoControls = false, 3000);
+  }
+
+  showHideFullScreenHandler(showFullscreen: boolean): void {
+    if (showFullscreen) {
+      this.fullScreenVisible = true;
+      setTimeout(() => {
+        this.htmlFullScreenVideoElement = this.fullScreenPlayer.nativeElement;
+      });
+    } else {
+      this.fullScreenVisible = false;
+    }
   }
 
 }

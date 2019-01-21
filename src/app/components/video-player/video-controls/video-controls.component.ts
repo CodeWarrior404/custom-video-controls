@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-video-controls',
@@ -6,7 +6,9 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
   styleUrls: ['./video-controls.component.scss']
 })
 export class VideoControlsComponent implements OnInit, OnChanges {
+  @Output() showFullscreen = new EventEmitter<boolean>();
   @Input() player: HTMLVideoElement;
+  @Input() inFullScreenMode: boolean;
   volume = 1;
   seekLocation = 0;
   videoLoaded: boolean;
@@ -49,7 +51,11 @@ export class VideoControlsComponent implements OnInit, OnChanges {
   }
 
   fullScreenClickHandler(): void {
-    this.player.requestFullscreen();
+    this.showFullscreen.emit(true);
+  }
+
+  exitFullScreenClickHandler(): void {
+    this.showFullscreen.emit(false);
   }
 
   volumeClickHandler(): void {
