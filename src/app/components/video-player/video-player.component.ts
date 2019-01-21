@@ -12,6 +12,8 @@ export class VideoPlayerComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() file: File;
   @Input() autoplay: boolean;
   @Input() loop: boolean;
+  @Input() height: string;
+  @Input() width: string;
   fileUrl: string;
   htmlVideoElement: HTMLVideoElement;
   htmlFullScreenVideoElement: HTMLVideoElement;

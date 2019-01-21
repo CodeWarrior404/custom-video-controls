@@ -1,4 +1,6 @@
-<div class="page-container" (mouseenter)="mouseEnterHandler()" (mouseleave)="mouseLeaveHandler()" (click)="clickHandler()">
+<div class="page-container"
+     (mouseenter)="mouseEnterHandler()" (mouseleave)="mouseLeaveHandler()" (click)="clickHandler()"
+     [style.height]="height" [style.width]="width">
   <video #player [autoplay]="autoplay" [loop]="loop">
     <source *ngIf="fileUrl"  [src]="fileUrl | safe">
   </video>
