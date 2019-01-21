@@ -1,5 +1,5 @@
 <div class="page-container" (mouseenter)="mouseEnterHandler()" (mouseleave)="mouseLeaveHandler()" (click)="clickHandler()">
-  <video #player [height]="300" [autoplay]="autoplay" [loop]="loop">
+  <video #player [autoplay]="autoplay" [loop]="loop">
     <source *ngIf="fileUrl"  [src]="fileUrl | safe">
   </video>
   <app-video-controls class="video-controls" *ngIf="htmlVideoElement" [player]="htmlVideoElement"

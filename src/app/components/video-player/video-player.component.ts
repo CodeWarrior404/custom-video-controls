@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-video-player',
@@ -8,6 +8,7 @@ import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, View
 export class VideoPlayerComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('player') player;
   @ViewChild('fullScreenPlayer') fullScreenPlayer;
+  @Output() fullScreenActivated = new EventEmitter<boolean>();
   @Input() file: File;
   @Input() autoplay: boolean;
   @Input() loop: boolean;
@@ -61,11 +62,31 @@ export class VideoPlayerComponent implements OnInit, OnChanges, AfterViewInit {
   showHideFullScreenHandler(showFullscreen: boolean): void {
     if (showFullscreen) {
       this.fullScreenVisible = true;
+      this.fullScreenActivated.emit(true);
       setTimeout(() => {
         this.htmlFullScreenVideoElement = this.fullScreenPlayer.nativeElement;
+        this.transferVideoStateToFullscreen();
       });
     } else {
+      this.transferVideoStateFromFullscreen();
       this.fullScreenVisible = false;
+      this.fullScreenActivated.emit(false);
+    }
+  }
+
+  private transferVideoStateToFullscreen(): void {
+    this.htmlFullScreenVideoElement.currentTime = this.htmlVideoElement.currentTime;
+    if (!this.htmlVideoElement.paused) {
+      this.htmlVideoElement.pause();
+      this.htmlFullScreenVideoElement.play();
+    }
+  }
+
+  private transferVideoStateFromFullscreen(): void {
+    this.htmlVideoElement.currentTime = this.htmlFullScreenVideoElement.currentTime;
+    if (!this.htmlFullScreenVideoElement.paused) {
+      this.htmlFullScreenVideoElement.pause();
+      this.htmlVideoElement.play();
     }
   }
 
